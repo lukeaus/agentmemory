@@ -223,7 +223,8 @@ export function detectEmbeddingProvider(
   env?: Record<string, string>,
 ): string | null {
   const source = env ?? getMergedEnv();
-  const forced = source["EMBEDDING_PROVIDER"];
+  const forced = source["EMBEDDING_PROVIDER"]?.trim();
+  if (forced?.toLowerCase() === "none") return null;
   if (forced) return forced;
 
   if (source["GEMINI_API_KEY"]) return "gemini";

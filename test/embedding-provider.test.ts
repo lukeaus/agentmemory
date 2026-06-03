@@ -50,6 +50,13 @@ describe("createEmbeddingProvider", () => {
     const provider = createEmbeddingProvider();
     expect(provider).toBeInstanceOf(OpenAIEmbeddingProvider);
   });
+
+  it("EMBEDDING_PROVIDER=none disables auto-detected embeddings", () => {
+    process.env["OPENROUTER_API_KEY"] = "test-key-789";
+    process.env["EMBEDDING_PROVIDER"] = "none";
+    const provider = createEmbeddingProvider();
+    expect(provider).toBeNull();
+  });
 });
 
 describe("OpenAIEmbeddingProvider", () => {
